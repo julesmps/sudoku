@@ -11,7 +11,7 @@ public:
   bool WriteToCell(unsigned char rowN, unsigned char colN, unsigned char value);
   bool EraseCell(unsigned char rowN, unsigned char colN);
   bool WriteNote(unsigned char rowN, unsigned char colN, unsigned char value);
-  bool EraseNote(unsigned char rowN, unsigned char colN);
+  bool EraseNote(unsigned char rowN, unsigned char colN, unsigned char value);
 
   unsigned char GetValueAt(unsigned char rowN, unsigned char colN) const;
   bool HasNote(unsigned char rowN, unsigned char colN,

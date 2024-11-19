@@ -18,7 +18,7 @@ Board::Board() {
   }
 }
 
-bool Board::WriteToCell(unsigned char rowN, unsigned chat colN,
+bool Board::WriteToCell(unsigned char rowN, unsigned char colN,
                         unsigned char value) {
   if(rowN < 1 || rowN > 9 || colN < 1 || colN > 9)
     return false;
@@ -38,7 +38,7 @@ bool Board::WriteNote(unsigned char rowN, unsigned char colN,
   return cells[rowN-1][colN-1].AddNote(value);
 }
 
-bool Board::EraseNote(unsigned char rowN, unsigned char colN) {
+bool Board::EraseNote(unsigned char rowN, unsigned char colN, unsigned char value) {
   if(rowN < 1 || rowN > 9 || colN < 1 || colN > 9)
     return false;
 
