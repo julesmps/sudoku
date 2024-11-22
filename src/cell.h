@@ -3,7 +3,7 @@
 
 class Cell {
 public:
-  Cell(unsigned char default_value = 0);
+  Cell();
 
   bool SetValue(unsigned char new_value);
   bool AddNote(unsigned char number);
@@ -14,8 +14,8 @@ public:
   bool HasNote(unsigned char number) const;
 
 private:
-  unsigned char value;
-  bool notes[9];
+  unsigned char value_;
+  bool notes_[9];
 };
 
 #endif // SUDOKU_CELL_H

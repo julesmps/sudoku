@@ -15,7 +15,7 @@ public:
   bool IsValidSolution() const;
 
 private:
-  const Cell* cells[9];
+  const Cell* cells_[9];
 };
 
 #endif // SUDOKU_GROUP_H

@@ -4,19 +4,19 @@
 
 Group::Group() {
   for(unsigned char i = 0; i < 9; i++)
-    cells[i] = nullptr;
+    cells_[i] = nullptr;
 }
 
 void Group::UpdatePtr(unsigned char index, const Cell* new_cell) {
   if(index >= 9)
     return;
 
-  cells[index] = new_cell;
+  cells_[index] = new_cell;
 }
 
 bool Group::IsWellDefined() const {
   for(unsigned char i = 0; i < 9; i++) {
-    if(cells[i] == nullptr)
+    if(cells_[i] == nullptr)
       return false;
   }
   return true;
@@ -24,7 +24,7 @@ bool Group::IsWellDefined() const {
 
 bool Group::HasEmptyCell() const {
   for(unsigned char i = 0; i < 9; i++) {
-    if(cells[i]->IsEmpty())
+    if(cells_[i]->IsEmpty())
       return true;
   }
   return false;
@@ -33,7 +33,7 @@ bool Group::HasEmptyCell() const {
 unsigned char Group::GroupSum() const {
   unsigned char sum = 0;
   for(unsigned char i = 0; i < 9; i++) {
-    sum += cells[i]->GetValue();
+    sum += cells_[i]->GetValue();
   }
   return sum;
 }
@@ -44,11 +44,11 @@ bool Group::IsValidSolution() const {
 
   bool value_present[9] = {};
   for(unsigned char i = 0; i < 9; i++) {
-    if(cells[i]->GetValue() < 1 || cells[i]->GetValue() > 9)
+    if(cells_[i]->GetValue() < 1 || cells_[i]->GetValue() > 9)
       return false;
 
-    if(!value_present[cells[i]->GetValue()-1]) {
-      value_present[cells[i]->GetValue()-1] = true;
+    if(!value_present[cells_[i]->GetValue()-1]) {
+      value_present[cells_[i]->GetValue()-1] = true;
     } else {
       // Found duplicate
       return false;
