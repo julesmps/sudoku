@@ -1,0 +1,10 @@
+
+cc_test(
+  name = "cell-test",
+  srcs = ["cell_test.cpp"],
+  deps = [
+    "//:cell",
+    "@googletest//:gtest",
+    "@googletest//:gtest_main",
+  ],
+)
