@@ -44,11 +44,12 @@ bool Group::IsValidSolution() const {
 
   bool value_present[9] = {};
   for(unsigned char i = 0; i < 9; i++) {
-    if(cells_[i]->GetValue() < 1 || cells_[i]->GetValue() > 9)
+    unsigned char cell_value = cells_[i]->GetValue();
+    if(cell_value < 1 || cell_value > 9)
       return false;
 
-    if(!value_present[cells_[i]->GetValue()-1]) {
-      value_present[cells_[i]->GetValue()-1] = true;
+    if(!value_present[cell_value-1]) {
+      value_present[cell_value-1] = true;
     } else {
       // Found duplicate
       return false;

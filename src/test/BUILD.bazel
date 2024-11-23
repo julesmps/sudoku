@@ -8,3 +8,13 @@ cc_test(
     "@googletest//:gtest_main",
   ],
 )
+
+cc_test(
+  name = "group-test",
+  srcs = ["group_test.cpp"],
+  deps = [
+    "//:group",
+    "@googletest//:gtest",
+    "@googletest//:gtest_main",
+  ],
+)
