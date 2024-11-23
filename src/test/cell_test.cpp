@@ -62,3 +62,54 @@ TEST(CellTest, IsEmptyWithNote) {
   cell.AddNote(1);
   EXPECT_TRUE(cell.IsEmpty());
 }
+
+TEST(CellTest, ClearCellEmpty) {
+  Cell cell = {};
+  cell.ClearValue();
+  EXPECT_TRUE(cell.IsEmpty());
+}
+
+TEST(CellTest, ClearCellNonEmpty) {
+  Cell cell = {};
+  cell.SetValue(5);
+  ASSERT_FALSE(cell.IsEmpty());
+  cell.ClearValue();
+  EXPECT_TRUE(cell.IsEmpty());
+}
+
+TEST(CellTest, NewCellUnlocked) {
+  Cell cell = {};
+  EXPECT_FALSE(cell.IsLocked());
+}
+
+TEST(CellTest, CannotSetLockedCell) {
+  Cell cell = {};
+  unsigned char val = 5, new_val = 3;
+  cell.SetValue(val);
+  cell.Lock();
+  cell.SetValue(new_val);
+  EXPECT_NE(cell.GetValue(), new_val);
+  EXPECT_EQ(cell.GetValue(), val);
+}
+
+TEST(CellTest, CanSetAfterUnlock) {
+  Cell cell = {};
+  unsigned char val = 1, no_val = 5, new_val = 9;
+  cell.SetValue(val);
+  cell.Lock();
+  cell.SetValue(no_val);
+  cell.Unlock();
+  cell.SetValue(new_val);
+  EXPECT_NE(cell.GetValue(), no_val);
+  EXPECT_EQ(cell.GetValue(), new_val);
+}
+
+TEST(CellTest, CannotClearWithLock) {
+  Cell cell = {};
+  unsigned char val = 4;
+  cell.SetValue(val);
+  cell.Lock();
+  cell.ClearValue();
+  EXPECT_FALSE(cell.IsEmpty());
+  EXPECT_EQ(cell.GetValue(), val);
+}
