@@ -43,6 +43,21 @@ TEST(CellTest, AddClearNoteValid) {
   EXPECT_FALSE(cell.HasNote(n));
 }
 
+TEST(CellTest, AddMultipleNotes) {
+  Cell cell = {};
+  const size_t N_LENGTH = 4;
+  unsigned char notes[N_LENGTH] = {1,3,5,8};
+  bool expected[9] = {1, 0, 1, 0, 1, 0, 0, 1, 0};
+
+  for(size_t n = 0; n < N_LENGTH; n++) {
+    cell.AddNote(notes[n]);
+  }
+
+  for(size_t n = 0; n < 9; n++) {
+    EXPECT_EQ(cell.HasNote(n+1), expected[n]);
+  }
+}
+
 TEST(CellTest, AddNoteInvalid) {
   Cell cell = {};
   unsigned char n = 11;
@@ -112,4 +127,24 @@ TEST(CellTest, CannotClearWithLock) {
   cell.ClearValue();
   EXPECT_FALSE(cell.IsEmpty());
   EXPECT_EQ(cell.GetValue(), val);
+}
+
+TEST(CellTest, SetAllNotes) {
+  Cell cell = {};
+  cell.SetAllNotes();
+  for(size_t n = 1; n <= 9; n++) {
+    EXPECT_TRUE(cell.HasNote(n));
+  }
+}
+
+TEST(CellTest, ClearMultipleNotes) {
+  Cell cell = {};
+  cell.AddNote(1);
+  cell.AddNote(4);
+  cell.AddNote(7);
+
+  cell.ClearAllNotes();
+  for(size_t n = 1; n <= 9; n++) {
+    EXPECT_FALSE(cell.HasNote(n));
+  }
 }

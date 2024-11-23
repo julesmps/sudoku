@@ -1,9 +1,6 @@
 #include "cell.h"
 
-Cell::Cell() : value_(0), locked_(false) {
-  for(unsigned char i = 0; i < 9; i++)
-    notes_[i] = false;
-}
+Cell::Cell() : value_(0), locked_(false), notes_mask_(0) {}
 
 bool Cell::SetValue(unsigned char new_value) {
   if(new_value > 9 || IsLocked())
@@ -21,7 +18,7 @@ bool Cell::AddNote(unsigned char number) {
   if(number < 1 || number > 9)
     return false;
 
-  notes_[number-1] = true;
+  notes_mask_ |= 1 << (number - 1);
   return true;
 }
 
@@ -29,8 +26,19 @@ bool Cell::ClearNote(unsigned char number) {
   if(number < 1 || number > 9)
     return false;
 
-  notes_[number-1] = false;
+  notes_mask_ &= ~(1 << (number - 1));
   return true;
+}
+
+void Cell::ClearAllNotes() {
+  notes_mask_ = 0;
+}
+
+void Cell::SetAllNotes() {
+  #pragma GCC diagnostic push
+  #pragma GCC diagnostic ignored "-Woverflow"
+  notes_mask_ =  ~0;
+  #pragma GCC diagnostic pop
 }
 
 void Cell::Lock() {
@@ -52,7 +60,7 @@ bool Cell::HasNote(unsigned char number) const {
   if(number < 1 || number > 9)
     return false;
 
-  return notes_[number - 1];
+  return notes_mask_ & (1 << (number - 1));
 }
 
 bool Cell::IsLocked() const {

@@ -9,6 +9,8 @@ public:
   bool ClearValue(); // alias for SetValue(0)
   bool AddNote(unsigned char number);
   bool ClearNote(unsigned char number);
+  void ClearAllNotes();
+  void SetAllNotes();
   void Lock();
   void Unlock();
 
@@ -18,9 +20,10 @@ public:
   bool IsLocked() const;
 
 private:
-  unsigned char value_;
-  bool notes_[9];
-  bool locked_;
+  unsigned short value_       : 4;
+  unsigned short locked_      : 1;
+  unsigned short              : 2;
+  unsigned short notes_mask_  : 9;
 };
 
 #endif // SUDOKU_CELL_H
