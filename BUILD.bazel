@@ -2,7 +2,7 @@
 cc_library(
   name = "board",
   hdrs = ["src/board.h"],
-  srcs = ["src/board.cc"],
+  srcs = ["src/board.cpp"],
   deps = [
     ":group",
     ":cell",
@@ -12,7 +12,7 @@ cc_library(
 cc_library(
   name = "group",
   hdrs = ["src/group.h"],
-  srcs = ["src/group.cc"],
+  srcs = ["src/group.cpp"],
   deps = [
     ":cell",
   ],
@@ -21,7 +21,7 @@ cc_library(
 cc_library(
   name = "cell",
   hdrs = ["src/cell.h"],
-  srcs = ["src/cell.cc"],
+  srcs = ["src/cell.cpp"],
   deps = [
   ],
   visibility = ["//src/test:__pkg__"],
