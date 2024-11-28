@@ -1,6 +1,8 @@
 #include "cell.h"
 
-Cell::Cell() : value_(0), locked_(false), notes_mask_(0) {}
+Cell::Cell(unsigned char value)
+    : value_(value), locked_(false), notes_mask_(0) {
+}
 
 bool Cell::SetValue(unsigned char new_value) {
   if(new_value > 9 || IsLocked())

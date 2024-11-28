@@ -3,7 +3,7 @@
 
 class Cell {
 public:
-  Cell();
+  Cell(unsigned char value = 0);
 
   bool SetValue(unsigned char new_value);
   bool ClearValue(); // alias for SetValue(0)

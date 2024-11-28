@@ -148,3 +148,45 @@ TEST(CellTest, ClearMultipleNotes) {
     EXPECT_FALSE(cell.HasNote(n));
   }
 }
+
+TEST(CellTest, DefaultValueNotEmpty) {
+  Cell cell = {1};
+  EXPECT_FALSE(cell.IsEmpty());
+}
+
+TEST(CellTest, DefaultValuesSet) {
+  unsigned char value = 3;
+  Cell cell = {value};
+  EXPECT_EQ(cell.GetValue(), value);
+}
+
+TEST(CellTest, DefaultValuesNoNotes) {
+  Cell cell = {2};
+  for(unsigned char note = 1; note <= 9; note++) {
+    EXPECT_FALSE(cell.HasNote(note));
+  }
+}
+
+TEST(CellTest, DefaultValueOverride) {
+  unsigned char value = 4;
+  unsigned char new_value = 5;
+  Cell cell = {value};
+  cell.SetValue(new_value);
+  EXPECT_EQ(cell.GetValue(), new_value);
+}
+
+TEST(CellTest, DefaultValueNotOverridenWithLock) {
+  unsigned char value = 6;
+  unsigned char new_value = 3;
+  Cell cell = {value};
+  cell.Lock();
+  cell.SetValue(new_value);
+  EXPECT_EQ(cell.GetValue(), value);
+}
+
+TEST(CellTest, DefaultValueCanBeCleared) {
+  unsigned char value = 7;
+  Cell cell = {value};
+  cell.ClearValue();
+  EXPECT_TRUE(cell.IsEmpty());
+}
